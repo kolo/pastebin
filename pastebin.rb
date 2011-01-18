@@ -4,6 +4,13 @@ Bundler.require(:default)
 APP_PATH = File.expand_path(File.dirname(__FILE__))
 $: << APP_PATH
 
+case Sinatra::Base.environment
+when :development
+  Bundler.require(:development)
+when :production
+  Bundler.require(:production)
+end
+
 if File.exists?('config.yml')
   @config = YAML.load(File.read('config.yml'))[Sinatra::Base.environment.to_s]
 else

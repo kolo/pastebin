@@ -1,6 +1,8 @@
 case @config['db_adapter']
 when 'sqlite3'
   DataMapper.setup(:default, "sqlite:///#{APP_PATH}/#{@config['database']}")
+when 'mysql'
+  DataMapper.setup(:default, "mysql://#{@config['database']}")
 else
   puts "Doesn't know how to handle #{@config['db_adapter']} database type"
   exit
@@ -17,6 +19,8 @@ when 'sqlite3'
   else
     DataMapper.auto_migrate!
   end
+when 'mysql'
+  DataMapper.auto_upgrade!
 else 
   puts "Doesn't know how to handle #{@config['db_adapter']} database type"
   exit

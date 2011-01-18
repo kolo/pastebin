@@ -5,5 +5,13 @@ gem 'haml'
 gem 'compass'
 gem 'dm-core'
 gem 'dm-migrations'
-gem 'dm-sqlite-adapter', :require => false
 gem 'coderay'
+gem 'thin'
+
+group :development do
+  gem 'dm-sqlite-adapter'
+end
+
+group :production do
+  gem 'dm-mysql-adapter'
+end
