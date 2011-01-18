@@ -1,0 +1,11 @@
+%form{:action => "/create", :method => "post"}
+  #new_pastie_form
+    #syntax.alright
+      %label{:for => "syntax"} Syntax:
+      %select{:name => "syntax"}
+        - Syntaxes.each do |key, value|
+          %option{:value => "#{key}"} #{value}
+    #content
+      %textarea{:name => "content"}
+    #submit.alright
+      %input{:type => "submit", :value => "Paste"}

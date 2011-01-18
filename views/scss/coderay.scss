@@ -1,0 +1,19 @@
+.CodeRay {
+  width: 720px;
+
+  font-family: monospace;
+  font-size: 12px;
+  overflow: auto;
+  
+  padding: 3px 5px;
+  margin: 12px 0;
+
+  .line_numbers {
+    padding-right: 10px;
+  }
+
+  pre {
+    margin: 0px;
+    padding: 0px;
+  }
+}

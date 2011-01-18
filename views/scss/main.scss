@@ -1,0 +1,54 @@
+@import url("reset.css");
+@import url("coderay.css");
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  width: 720px;
+
+  .alright {
+    text-align: right;
+  }
+
+  .alcenter {
+    text-align: center;
+  }
+
+  #header {
+    font-size: 0.9em;
+  }
+}
+
+#new_pastie_form {
+  margin-top: 20px;
+
+  div {
+    margin-top: 5px;
+  }
+
+  #syntax {
+    font: 0.7em;
+
+    select {
+      padding: 3px 8px 3px 4px;
+      width: 200px;
+      margin: 0px;
+    }
+  }
+
+  #content {
+    textarea {
+      width: 712px;
+      height: 350px;
+    }
+  }
+
+  #submit {
+    input[type="submit"] {
+      padding: 2px 8px;
+    }
+  }
+}
