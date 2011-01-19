@@ -3,13 +3,12 @@ if ENV['DATABASE_URL']
   @config['database'] = ENV['DATABASE_URL']
 end
 
-case @config['db_adapter']
-when 'sqlite3'
-  DataMapper.setup(:default, "sqlite:///#{APP_PATH}/#{@config['database']}")
-when 'mysql'
-  DataMapper.setup(:default, "mysql://#{@config['database']}")
+puts @config['database']
+
+if @config['database']
+  DataMapper.setup(:default, @config['database'])
 else
-  puts "Doesn't know how to handle #{@config['db_adapter']} database type"
+  puts 'Cannot work without database. Exit.'
   exit
 end
 
@@ -17,16 +16,12 @@ require 'models/pastie'
 
 DataMapper.finalize
 
-case @config['db_adapter']
-when 'sqlite3'
-  if File.exists?("#{APP_PATH}/#{@config['database']}")
-    DataMapper.auto_upgrade!
-  else
-    DataMapper.auto_migrate!
+if @config['database']
+  case Sinatra::Base.environment
+  when :development then DataMapper.auto_migrate!
+  when :production then DataMapper.auto_upgrade!
   end
-when 'mysql'
-  DataMapper.auto_upgrade!
-else 
-  puts "Doesn't know how to handle #{@config['db_adapter']} database type"
+else
+  puts 'Canno work without database. Exit.'
   exit
 end

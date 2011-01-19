@@ -14,8 +14,8 @@ end
 if File.exists?('config.yml')
   @config = YAML.load(File.read('config.yml'))[Sinatra::Base.environment.to_s]
 else
-  puts 'Cannot find config.yml'
-  exit
+  puts 'Config file is empty. Using empty configuration.'
+  @config = []
 end
 
 configure do
