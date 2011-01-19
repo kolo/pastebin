@@ -1,3 +1,8 @@
+# Heroku uses DATABASE_URL environment variable to pass database path to the app
+if ENV['DATABASE_URL']
+  @config['database'] = ENV['DATABASE_URL']
+end
+
 case @config['db_adapter']
 when 'sqlite3'
   DataMapper.setup(:default, "sqlite:///#{APP_PATH}/#{@config['database']}")
