@@ -3,8 +3,6 @@ if ENV['DATABASE_URL']
   @config['database'] = ENV['DATABASE_URL']
 end
 
-puts @config['database']
-
 if @config['database']
   DataMapper.setup(:default, @config['database'])
 else
@@ -22,6 +20,6 @@ if @config['database']
   when :production then DataMapper.auto_upgrade!
   end
 else
-  puts 'Canno work without database. Exit.'
+  puts 'Cannot work without database. Exit.'
   exit
 end
