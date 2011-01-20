@@ -21,6 +21,14 @@ Syntaxes = {
   "ruby"       => "Ruby"
 }
 
+Extensions = {
+  "plain"      => ".txt",
+  "cplusplus"  => ".cpp",
+  "java"       => ".java",
+  "javascript" => ".js",
+  "ruby"       => ".rb"
+}
+
 class Pastebin < Sinatra::Base
   configure do
     Compass.configuration do |config|
@@ -48,6 +56,7 @@ class Pastebin < Sinatra::Base
         created_at = Time.now
         pastie = Pastie.create(
           :syntax      => params['syntax'],
+          :raw_content => params['content'],
           :content     => CodeRay.scan(params['content'], params['syntax']).div(:css => :class, :line_numbers => :table),
           :created_at  => created_at
         )
@@ -69,5 +78,31 @@ class Pastebin < Sinatra::Base
     else
       redirect '/'
     end
+  end
+
+  get '/:id/download' do
+    @pastie = Pastie.first(:id => params['id'])
+    if @pastie
+      filename = File.join(APP_PATH, 'files', get_filename(@pastie))
+      unless File.exists?(filename)
+        File.open(filename, 'w'){|f| f.write(@pastie.raw_content)}
+      end
+      send_file(filename, :disposition => 'attachment', :filename => File.basename(filename))
+    else
+      redirect '/'
+    end
+  end
+
+  get '/:id/raw' do
+    @pastie = Pastie.first(:id => params['id'])
+    if @pastie
+      haml :raw, :layout => false
+    else
+      redirect '/'
+    end
+  end
+
+  def get_filename(pastie)
+    pastie.id.to_s + Extensions[pastie.syntax]
   end
 end

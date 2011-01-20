@@ -4,7 +4,11 @@
   %link{:href => "/css/main.css", :rel => "stylesheet", :type => "text/css"}/
   %title Pastebin
   %body.center
-    %header.alright
+    #header.alright
       %a{:href => "/"}
         %h1 Pastebin
     = yield
+    #footer
+      .alright
+        Code can be found at
+        %a{:href => "https://github.com/kolo/pastebin"} GitHub

@@ -1,2 +1,9 @@
-:plain
-  #{@pastie.content}
+.code
+  .links
+    %a{:href => "#{@pastie.id}/raw"} Raw
+    %a{:href => "#{@pastie.id}/download"} Download
+  :plain
+    #{@pastie.content}
+  .links
+    %a{:href => "#{@pastie.id}/raw"} Raw
+    %a{:href => "#{@pastie.id}/download"} Download
