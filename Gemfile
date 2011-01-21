@@ -14,5 +14,4 @@ end
 
 group :production do
   gem 'dm-mysql-adapter'
-  gem 'dm-postgres-adapter'
 end
